@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from typing import List, Optional
 from datetime import datetime
-from app.models import TaskResponse, TaskStatus
+from app.models import TaskResponse, TaskStatus, TaskCreate
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -158,5 +158,50 @@ def get_task(task_id: int):
     
     raise HTTPException(status_code=404, detail=f"Task with id {task_id} not found")
 
+# ============================================================================
+# BUGGY POST ENDPOINT - Added in PR (has multiple issues)
+# ============================================================================
 
-# Note: POST /tasks endpoint will be added in the PR
+@app.post("/tasks", response_model=TaskResponse)
+def create_task(task: TaskCreate):
+    """
+    Create a new task
+    
+    Args:
+        task: Task data from request body
+    
+    Returns:
+        Created task with ID and timestamps
+    
+    NOTE: This implementation has several bugs that need to be fixed:
+    - BUG 1: Missing validation - allows empty title
+    - BUG 2: Missing validation - allows invalid status values  
+    - BUG 3: Doesn't set default status to "pending" when status is None
+    - BUG 4: No error handling for database operations
+    """
+    global task_id_counter
+    
+    # BUG 1: No validation for empty title
+    # Should check: if not task.title or not task.title.strip()
+    
+    # BUG 2: No validation for invalid status values
+    # The status field accepts the string directly without validation
+    
+    # BUG 3: Wrong default status handling
+    # When status is None, it should default to "pending" but doesn't
+    current_time = datetime.now()
+    
+    new_task = {
+        "id": task_id_counter,
+        "title": task.title,  # BUG 1: Allows empty strings
+        "description": task.description,
+        "status": task.status,  # BUG 3: Can be None, should default to "pending"
+        "created_at": current_time,
+        "updated_at": current_time
+    }
+    
+    # BUG 4: No try-except for potential errors
+    tasks_db.append(new_task)
+    task_id_counter += 1
+    
+    return new_task
