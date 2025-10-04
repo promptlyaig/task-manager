@@ -10,42 +10,98 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# In-memory storage
+# In-memory storage with course-related tasks
 tasks_db = [
     {
         "id": 1,
-        "title": "Setup project",
-        "description": "Initialize FastAPI project",
+        "title": "Introduction_to_LLMs",
+        "description": "Learn fundamentals of Large Language Models",
         "status": TaskStatus.COMPLETED,
-        "created_at": datetime(2025, 10, 1, 9, 0, 0),
-        "updated_at": datetime(2025, 10, 1, 10, 0, 0)
+        "created_at": datetime(2025, 9, 1, 9, 0, 0),
+        "updated_at": datetime(2025, 9, 5, 17, 30, 0)
     },
     {
         "id": 2,
-        "title": "Write tests",
-        "description": "Add unit tests for all endpoints",
-        "status": TaskStatus.PENDING,
-        "created_at": datetime(2025, 10, 2, 11, 0, 0),
-        "updated_at": datetime(2025, 10, 2, 11, 0, 0)
+        "title": "Python_Essentials",
+        "description": "Master Python basics for AI development",
+        "status": TaskStatus.COMPLETED,
+        "created_at": datetime(2025, 9, 6, 10, 0, 0),
+        "updated_at": datetime(2025, 9, 10, 16, 0, 0)
     },
     {
         "id": 3,
-        "title": "Deploy to staging",
-        "description": "Deploy API to staging environment",
+        "title": "pdf_processing",
+        "description": "Learn document processing techniques",
+        "status": TaskStatus.COMPLETED,
+        "created_at": datetime(2025, 9, 11, 11, 0, 0),
+        "updated_at": datetime(2025, 9, 15, 14, 30, 0)
+    },
+    {
+        "id": 4,
+        "title": "LangChain_basics",
+        "description": "Introduction to LangChain framework",
+        "status": TaskStatus.PENDING,
+        "created_at": datetime(2025, 9, 16, 9, 0, 0),
+        "updated_at": datetime(2025, 9, 16, 9, 0, 0)
+    },
+    {
+        "id": 5,
+        "title": "Langgraph-Basics",
+        "description": "Fundamentals of LangGraph for agent workflows",
+        "status": TaskStatus.COMPLETED,
+        "created_at": datetime(2025, 9, 20, 10, 30, 0),
+        "updated_at": datetime(2025, 9, 25, 15, 0, 0)
+    },
+    {
+        "id": 6,
+        "title": "Langgraph-Explore",
+        "description": "Deep dive into advanced LangGraph concepts",
         "status": TaskStatus.IN_PROGRESS,
-        "created_at": datetime(2025, 10, 3, 14, 30, 0),
-        "updated_at": datetime(2025, 10, 3, 15, 0, 0)
+        "created_at": datetime(2025, 9, 26, 9, 0, 0),
+        "updated_at": datetime(2025, 10, 3, 14, 30, 0)
+    },
+    {
+        "id": 7,
+        "title": "OrderingAgent",
+        "description": "Build an ordering agent using LangGraph",
+        "status": TaskStatus.PENDING,
+        "created_at": datetime(2025, 10, 1, 10, 0, 0),
+        "updated_at": datetime(2025, 10, 1, 10, 0, 0)
+    },
+    {
+        "id": 8,
+        "title": "DeliveryAgent",
+        "description": "Implement a delivery tracking agent",
+        "status": TaskStatus.PENDING,
+        "created_at": datetime(2025, 10, 1, 10, 15, 0),
+        "updated_at": datetime(2025, 10, 1, 10, 15, 0)
+    },
+    {
+        "id": 9,
+        "title": "MultiAgent-DataShare",
+        "description": "Build multi-agent system with shared data",
+        "status": TaskStatus.PENDING,
+        "created_at": datetime(2025, 10, 1, 10, 30, 0),
+        "updated_at": datetime(2025, 10, 1, 10, 30, 0)
+    },
+    {
+        "id": 10,
+        "title": "MCP-Helloworld",
+        "description": "Create first Model Context Protocol application",
+        "status": TaskStatus.PENDING,
+        "created_at": datetime(2025, 10, 1, 10, 45, 0),
+        "updated_at": datetime(2025, 10, 1, 10, 45, 0)
     }
 ]
 
-task_id_counter = 4
+task_id_counter = 11
 
 
 @app.get("/")
 def read_root():
     """Root endpoint"""
     return {
-        "message": "Welcome to Task Manager API",
+        "message": "Welcome to Task Manager API - Course Progress Tracker",
         "version": "1.0.0",
         "endpoints": {
             "health": "/health",
