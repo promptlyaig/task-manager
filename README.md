@@ -25,3 +25,4 @@ cd task-manager
 
 # Install dependencies
 pip install -r requirements.txt
+# Testing CI
